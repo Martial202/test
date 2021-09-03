@@ -54,6 +54,70 @@ class Categorie {
         return $result;
     }
     
+    public function getMtnVdu($id,$cnx)
+    {
+        $sql = "SELECT SUM(qte_ligne * pu_ligne) as qte FROM vente v,ligne l WHERE v.idvente=l.idvente AND l.idprod=? ";
+        $result = 0;
+        try {
+            $query = $cnx->prepare($sql);
+            $query->bindParam(1,$id);
+            $query->execute();
+            $data = $query->fetch();
+            $result = $data['qte'];
+        } catch (PDOException $ex) {
+            echo 'Erreur : ' . $ex->getMessage();
+        }
+        return $result;
+    }
+    
+    public function getTotVteByProd($id,$cnx)//Total Montant apres vente
+    {
+        $sql = "SELECT SUM(p.pu_prod * a.qte_app) as vte FROM produit p, approvisionner a WHERE p.idprod=a.idprod AND p.idprod=?";
+        $result = 0;
+        try {
+            $query = $cnx->prepare($sql);
+            $query->bindParam(1,$id);
+            $query->execute();
+            $data = $query->fetch();
+            $result = $data['vte'];
+        } catch (PDOException $ex) {
+            echo 'Erreur : ' . $ex->getMessage();
+        }
+        return $result;
+    }
+    
+    public function getotQteProd($id,$cnx)//Total Quantité Produit 
+    {
+        $sql = "SELECT SUM(qte_app) as qte FROM approvisionner WHERE idprod=?";
+        $result = 0;
+        try {
+            $query = $cnx->prepare($sql);
+            $query->bindParam(1,$id);
+            $query->execute();
+            $data = $query->fetch();
+            $result = $data['qte'];
+        } catch (PDOException $ex) {
+            echo 'Erreur : ' . $ex->getMessage();
+        }
+        return $result;
+    }
+    
+    public function getQteVte($id,$cnx)//Total Quantité Produit vendu
+    {
+        $sql = "SELECT SUM(qte_ligne) as qte FROM vente v, ligne l WHERE v.idvente=l.idvente AND l.idprod=?";
+        $result = 0;
+        try {
+            $query = $cnx->prepare($sql);
+            $query->bindParam(1,$id);
+            $query->execute();
+            $data = $query->fetch();
+            $result = $data['qte'];
+        } catch (PDOException $ex) {
+            echo 'Erreur : ' . $ex->getMessage();
+        }
+        return $result;
+    }
+    
     public function verif($libelle, $cnx) {
         $sql = "SELECT idcat FROM categorie WHERE libelle_cat = ? ";
         $result = false;
@@ -80,7 +144,40 @@ class Categorie {
         }
         return $data;
     }
-
+      
+    public function getProdToCat($id=null,$cnx) {
+        $sql = " SELECT * FROM produit ";
+          if (!is_null($id)) {
+             $sql .= " WHERE idcat=?";
+          }
+        $data = array();
+        try {
+            $query = $cnx->prepare($sql);
+            !is_null($id)? $query->bindParam(1,$id) : "";
+            $query->execute();
+            $data = $query->fetchAll();
+        } catch (PDOException $ex) {
+            echo 'Erreur : '.$ex->getMessage();
+        }
+        return $data;
+    }
+    
+    public function getTotDep($table, $champ1,$champ2,$id,$cnx)
+    {
+        $sql = "SELECT SUM($champ1 * $champ2) as champ FROM $table WHERE idprod=?";
+        $result = 0;
+        try {
+            $query = $cnx->prepare($sql);
+            $query->bindParam(1,$id);
+            $query->execute();
+            $data = $query->fetch();
+            $result = $data['champ'];
+        } catch (PDOException $ex) {
+            echo 'Erreur : ' . $ex->getMessage();
+        }
+        return $result;
+    }
+    
     public function singleCat($id,$cnx) {
         $sql = "SELECT * FROM categorie WHERE idcat=? ";
         $data = array();

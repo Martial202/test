@@ -14,6 +14,7 @@ switch (@$_GET['page']) {
     case 'ajouter_vente':include 'pages/ajouter_vente.php';break;
     case 'liste_vente':include 'pages/liste_vente.php';break;
     case 'panier':include 'pages/panier.php';break;
+    case 'voirProduit':include 'pages/voirProduit.php';break;
 
     default:include 'pages/accueil.php';
         break;

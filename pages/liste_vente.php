@@ -28,20 +28,19 @@ include 'partial/menu_vente.php'; ?>
                     <tbody>
                         <?php 
                           $i = 0;
+                          $nb = 0;
                           foreach ($Leonnie as $data ) {
                             $i++;
+                            $nb = $vente->getNombreProd($data['idvente'],$cnx);
                              ?>
                              <tr>
                                  <td><?=$i?></td>
-                                 <td><?=@$data['date_vente']?></td>
+                                 <td><?=@$data['refvente']?></td>
                                  <td><?=number_format(@$data['montant'])?> <b>FCFA</b></td>
-                                 <td><?=@$data['date_vente']?></td>
+                                 <td><?= ($nb > 0) ? $nb : 0 ?></td>
                                  <td><?=@$data['date_vente']?></td>
                                  <td>
-                                     <a href="rooter.php?page=ajouter_produit&idPrd=<?=$data['idvente']?>" title="Modifier" name="btn" class="btn btn-warning text-white">
-                                                <i class="mdi mdi-pencil"></i></a>
-                                     <a href="rooter.php?page=supp&idprod=<?= $data["idvente"] ?>" title="supprimer" name="btn" class="btn btn-danger text-white btnsupp">
-                                                <i class="mdi mdi-delete "></i></a>
+                                 <a class="btn btn-info btn-sm" href="rooter.php?page=voirProduit&idvte=<?= $data['idvente'] ?>" title="Voir"> <i class="mdi mdi-eye"></i> </a>
                                  </td>
                              </tr>
                              <?php

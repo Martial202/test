@@ -12,7 +12,8 @@ include 'partial/menu_vente.php'; ?>
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-danger">Menu des Ventes</h2>
+                <h2 class="card-subtitle text-danger">Menu des Ventes</h2>
+                <p class="retour"></p>
             </div>
             <div class="table-responsive">
                 <table class="table" id="myTable">
@@ -34,19 +35,18 @@ include 'partial/menu_vente.php'; ?>
                         $se = 0;
                         foreach ($prod as $key => $value) {
                             $i++;
-                        $sf = ($stock->getElement('approvisionner', 'qte_app', $value["idprod"],$cnx) - $stock->getElement('ligne', 'qte_ligne', $value["idprod"],$cnx));
+                            $sf = ($stock->getElement('approvisionner', 'qte_app', $value["idprod"],$cnx) - $stock->getElement('ligne', 'qte_ligne', $value["idprod"],$cnx));
                             $se = $stock->getElement('approvisionner', 'qte_app', $value["idprod"],$cnx);
                             $ss = $stock->getElement('ligne', 'qte_ligne', $value["idprod"],$cnx);
-                           
                         ?>
                             <tr>
                                 <td><?= $i ?></td>
                                 <td><?= $value['libelle_prod'] ?></td>
                                 <td><?= $value['categorie'] ?></td>
-                                <td><?= number_format($value['pu_prod']).' Fcfa' ?></td>
+                                <td><?= number_format($value['pu_prod']) . ' Fcfa' ?></td>
                                 <td><?= $sf ?></td>
                                 <td>
-                                    <a class="btn btn-info btn-sm add" href="<?= $value['idprod'] ?>" title="AJouter au panier "> <i class="mdi mdi-cart-plus"></i> </a>
+                                    <a class="btn btn-info btn-sm add" href="<?= $value['idprod'] . 'masko' . $sf . 'masko' . $value['pu_prod'] ?>" title="AJouter au panier "> <i class="mdi mdi-cart-plus"></i> </a>
                                 </td>
                             </tr>
                         <?php

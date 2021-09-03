@@ -92,7 +92,36 @@ class Produit {
         }
         return $dat;
     }
-
+    public function getTotVte($cnx)
+    {
+        $sql = "SELECT SUM(p.pu_prod * a.qte_app) as vte FROM produit p, approvisionner a WHERE p.idprod=a.idprod";
+        $result = 0;
+        try {
+            $query = $cnx->prepare($sql);
+            $query->execute();
+            $data = $query->fetch();
+            $result = $data['vte'];
+        } catch (PDOException $ex) {
+            echo 'Erreur : ' . $ex->getMessage();
+        }
+        return $result;
+    }
+    
+    public function getQteVte($cnx)
+    {
+        $sql = "SELECT SUM(qte_ligne) as qte FROM vente v, ligne l WHERE v.idvente=l.idvente";
+        $result = 0;
+        try {
+            $query = $cnx->prepare($sql);
+            $query->execute();
+            $data = $query->fetch();
+            $result = $data['qte'];
+        } catch (PDOException $ex) {
+            echo 'Erreur : ' . $ex->getMessage();
+        }
+        return $result;
+    }
+    
      public function modifierProd($libelle,$pu,$crit,$cat, $id, $cnx) {
         $sql = "UPDATE produit SET libelle_prod=?, pu_prod=?, critique=?, idcat=? WHERE idprod=?";
         $result = false;

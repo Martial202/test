@@ -11,9 +11,9 @@
                                 <div class="user-content hide-menu m-l-10">
                                     <a href="#" class="" id="Userdd" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <h4 class="m-b-0 user-name font-medium"><?=$_SESSION['user']['nom']?></h4>
+                                        <h4 class="m-b-0 user-name font-medium" style="text-transform: uppercase;"><?=$_SESSION['user']['nom']?></h4>
                                     </a>
-                                    
+                                    <span class="op-5 user-email"><?=$_SESSION['user']['login']?></span>
                                 </div>
                             </div>
                             <!-- End User Profile-->

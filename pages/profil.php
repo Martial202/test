@@ -14,6 +14,8 @@ if (isset($_POST['btn_moduser'])) {
     } else {
 
         if ($user->modifierUser($nom, $login, $new_password, $_SESSION['user']['idu'], $cnx)) {
+            $_SESSION['user']['nom'] = $nom;  
+            $_SESSION['user']['login'] = $login;  
 ?>
             <script>
                 alert('Modification effectuée avec succes !');
@@ -35,13 +37,13 @@ $Init = substr($_SESSION['user']['nom'], 0,1);
                 <div class="row">
                     <div class="col-md-4">
                         <p>
-                           <label><b> NOM :</b></label>  <span> <?= @$_SESSION['user']['nom'] ?></span> 
+                           <label><b> NOM :</b></label>  <span style="text-transform: uppercase;"> <?= @$_SESSION['user']['nom'] ?></span> 
                         </p>
                         <p>
                            <label><b> LOGIN :</b></label> <span><?= @$_SESSION['user']['login'] ?></span> 
                         </p>
                         <span style="display: block; width: 50%; height: 155px; border: 2px solid #eef5f9;margin-left: 60px; border-radius: 100px;background-color: gray; line-height: 145px">
-                            <b style="font-family: cursive;font-size: 1000%;margin-left: 29px;color: white"><?= @$Init ?></b>
+                            <b style="font-family: cursive;font-size: 1000%;margin-left: 29px;color: white; text-transform: uppercase;"><?= @$Init ?></b>
                         </span>
                     </div>
                     <div class="col-md-8">

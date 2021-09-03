@@ -20,7 +20,7 @@ include 'partial/menu_produit.php';
                             <th scope="col">#</th>
                             <th scope="col" class="text-dark">Désignation</th>
                             <th scope="col" class="text-dark">Categorie</th>
-                            <th scope="col" class="text-dark">Prix Unitaire</th>
+                            <th scope="col" class="text-dark">Prix de Vente</th>
                             <th scope="col" class="text-dark">Actions</th>
                         </tr>
                     </thead>
